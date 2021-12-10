@@ -3,13 +3,14 @@ import { Canvas } from '@react-three/fiber'
 import { Preload, OrbitControls } from '@react-three/drei'
 import { Section } from '../../components/Section'
 import { GetServerSideProps } from 'next'
-import { SectionTypes } from '../../@types'
+import { InteractionTypes, SectionTypes } from '../../@types'
 
 type HomeProps = {
   section: SectionTypes
 }
 
 export default function Home({ section }: HomeProps) { 
+  console.log(section)
   return (
     <Canvas frameloop="demand" camera={{ position: [0, 0, 5] }}>
       {/* @ts-ignore */}
@@ -25,7 +26,7 @@ export default function Home({ section }: HomeProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/sections?filters[slug][$eq]=${slug}&populate=texture`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/sections?filters[slug][$eq]=${slug}&populate=texture&populate=interactions`)
   const data = await response.json()
 
   const formatedCreateAt = new Date(data?.data[0].attributes.createdAt)
@@ -39,8 +40,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   )
 
   const [first, sec, third, ...rest] = formatedCreateAt.split(' ');
-
+  
   const formatedTexture = data?.data[0].attributes.texture.data.attributes.url
+
+  const formattedInteractions = data?.data[0].attributes.interactions.data.map(item => {
+    const interaction = {
+      id: item.id,
+      name: item.attributes.name,
+      positionX: item.attributes.positionX,
+      positionY: item.attributes.positionY,
+      positionZ: item.attributes.positionZ,
+      link: item.attributes.link,
+      description: item.attributes.description,
+    }
+    return interaction
+  }) as InteractionTypes
 
   const formatedData = {
     id: data?.data[0].id,
@@ -48,7 +62,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     slug: data?.data[0].attributes.slug,
     textureUrl: formatedTexture,
     createdAtDate: `${first} ${sec} ${third?.replace(',', '')}`,
-    createdAtTime: rest[0] 
+    createdAtTime: rest[0],
+    interactions: formattedInteractions
   }
 
   return {

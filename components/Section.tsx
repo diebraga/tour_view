@@ -15,7 +15,9 @@ export function Section({ section }: SectionProps) {
         <meshBasicMaterial map={useLoader(THREE.TextureLoader, `${section.textureUrl}`)} side={THREE.BackSide} />
       </mesh>
       <group>
-        <Interaction />
+        {section.interactions.map((interaction, index) => {
+          return <Interaction key={index} interaction={interaction}/>
+        })}
       </group>
     </group>
   )

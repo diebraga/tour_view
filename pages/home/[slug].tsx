@@ -1,18 +1,22 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Preload, OrbitControls } from '@react-three/drei'
-import { Dome } from '../../components/Dome'
+import { Section } from '../../components/Section'
 import { GetServerSideProps } from 'next'
+import { SectionTypes } from '../../@types'
 
-export default function Home({ property }) { 
-  
+type HomeProps = {
+  section: SectionTypes
+}
+
+export default function Home({ section }: HomeProps) { 
   return (
-    <Canvas frameloop="demand" camera={{ position: [0, 4, 0.1] }}>
+    <Canvas frameloop="demand" camera={{ position: [0, 0, 5] }}>
       {/* @ts-ignore */}
       <OrbitControls enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5} />
       <Suspense fallback={null}>
         <Preload all />
-        <Dome property={property}/>
+        <Section section={section}/>
       </Suspense>
     </Canvas>
   )
@@ -21,7 +25,7 @@ export default function Home({ property }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/properties?filters[slug][$eq]=${slug}&populate=texture`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/sections?filters[slug][$eq]=${slug}&populate=texture`)
   const data = await response.json()
 
   const formatedCreateAt = new Date(data?.data[0].attributes.createdAt)
@@ -49,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      property: formatedData
+      section: formatedData
     }
   }
 }

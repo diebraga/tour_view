@@ -1,19 +1,19 @@
 import * as THREE from 'three'
-import React, {  } from 'react'
 import { Html } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
 
-export function Dome({ name, position, texture, onClick }) {
+export function Dome({ property }) {
   return (
     <group>
       <mesh>
         <sphereBufferGeometry args={[500, 60, 40]} />
-        <meshBasicMaterial map={texture} side={THREE.BackSide} />
+        <meshBasicMaterial map={useLoader(THREE.TextureLoader, `${property.textureUrl}`)} side={THREE.BackSide} />
       </mesh>
-      <mesh position={position}>
+      <mesh position={[-15, 0, 0]}>
         <Html center>
-          <div style={{ background: '#ffff', height: '30px' }} onClick={onClick}>
+          <div style={{ background: '#ffff', height: '30px' }}>
             <div style={{ paddingTop: '5px', paddingLeft: '5px', paddingRight: '5px' }}>
-              {name}
+              lllll
             </div>
           </div>
         </Html>

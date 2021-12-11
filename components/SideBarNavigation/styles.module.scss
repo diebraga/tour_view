@@ -1,0 +1,23 @@
+.hoverUnderlineAnimation {
+  display: inline-block;
+  position: relative;
+  min-width: 50%;
+}
+
+.hoverUnderlineAnimation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #2B6CB0;
+  transform-origin: bottom right;
+  transition: transform 0.45s ease-out;  
+}
+
+.hoverUnderlineAnimation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

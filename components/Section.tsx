@@ -5,9 +5,10 @@ import { Interaction } from './Interaction'
 
 type SectionProps = {
   section: SectionTypes
+  navigationIsOpen: boolean
 }
 
-export function Section({ section }: SectionProps) {
+export function Section({ section, navigationIsOpen }: SectionProps) {
   return (
     <group>
       <mesh>
@@ -15,7 +16,7 @@ export function Section({ section }: SectionProps) {
         <meshBasicMaterial map={useLoader(THREE.TextureLoader, `${section.textureUrl}`)} side={THREE.BackSide} />
       </mesh>
       <group>
-        {section.interactions.map((interaction, index) => {
+        {!navigationIsOpen && section.interactions.map((interaction, index) => {
           return <Interaction key={index} interaction={interaction}/>
         })}
       </group>

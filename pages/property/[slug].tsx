@@ -4,22 +4,47 @@ import { Preload, OrbitControls } from '@react-three/drei'
 import { Section } from '../../components/Section'
 import { GetServerSideProps } from 'next'
 import { InteractionTypes, SectionTypes } from '../../@types'
+import * as THREE from 'three'
+import { Box, IconButton, useDisclosure } from '@chakra-ui/react'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { useRef } from 'react'
+import SideBarNavigation from '../../components/SideBarNavigation'
 
 type HomeProps = {
   section: SectionTypes
 }
 
 export default function Home({ section }: HomeProps) { 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef()
+
   console.log(section)
   return (
-    <Canvas frameloop="demand" camera={{ position: [0, 0, 5] }}>
-      {/* @ts-ignore */}
-      <OrbitControls enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5} />
-      <Suspense fallback={null}>
-        <Preload all />
-        <Section section={section}/>
-      </Suspense>
-    </Canvas>
+    <>
+      <SideBarNavigation onClose={onClose} isOpen={isOpen} btnRef={btnRef}/>
+
+      <IconButton
+        aria-label='open navigation'
+        position='absolute'
+        left='6'
+        top='4'
+        className='btn-nav'
+        ref={btnRef}
+        icon={<GiHamburgerMenu />}
+        colorScheme='gray'
+        onClick={onOpen} />
+
+      <Canvas frameloop="demand" camera={{ position: [0, 0, 5] }}>
+        {/* @ts-ignore */}
+        <OrbitControls enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5} />
+        <primitive object={new THREE.AxesHelper(10)} />
+
+        <Suspense fallback={null}>
+          <Preload all />
+          <Section section={section} navigationIsOpen={isOpen}/>
+        </Suspense>
+      </Canvas>
+    </>
   )
 }
 

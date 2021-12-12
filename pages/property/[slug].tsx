@@ -77,6 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       positionZ: item.attributes.positionZ,
       link: item.attributes.link,
       description: item.attributes.description,
+      type: item.attributes.type,
     }
     return interaction
   }) as InteractionTypes

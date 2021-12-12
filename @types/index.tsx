@@ -16,4 +16,5 @@ export type InteractionTypes = {
   positionX: number
   positionY: number
   positionZ: number
+  type: 'info' | 'link'
 }

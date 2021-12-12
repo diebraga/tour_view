@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Preload, OrbitControls } from '@react-three/drei'
+import { Preload, OrbitControls, PositionalAudio } from '@react-three/drei'
 import { Section } from '../../components/Section'
 import { GetServerSideProps } from 'next'
 import { InteractionTypes, SectionTypes } from '../../@types'
@@ -9,6 +9,7 @@ import { Box, IconButton, useDisclosure } from '@chakra-ui/react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useRef } from 'react'
 import SideBarNavigation from '../../components/SideBarNavigation'
+import { useState } from 'react'
 
 type HomeProps = {
   section: SectionTypes

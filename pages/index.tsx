@@ -52,7 +52,7 @@ export default function Index() {
               mb={{ base: 2, sm: 0 }}
               size="lg"
               cursor="pointer"
-              href='/property/my-hall-1'
+              href='/property'
             >
               Get Started
               <Icon boxSize={4} ml={1} viewBox="0 0 20 20" fill="currentColor">

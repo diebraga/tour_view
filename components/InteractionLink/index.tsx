@@ -1,5 +1,5 @@
 import { Html } from "@react-three/drei";
-import { Box, Button, IconButton, Popover, PopoverBody, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger, Text } from "@chakra-ui/react";
 import { motion } from 'framer-motion';
 import { GiClick } from "react-icons/gi";
 
@@ -32,18 +32,25 @@ export function InteractionLink({ position, name, onClick }: InteractionLinkProp
               icon={<GiClick size={20}/>}
             />
           </PopoverTrigger>
-          <PopoverContent className='w-60 bg-transparent rounded-md'>
-            {/* <PopoverCloseButton className='absolute right-3 top-2.5' /> */}
+          <PopoverContent className='w-auto rounded-md bg-gray-50'>
 
-            <PopoverBody>
-              <Button 
-                as='a'
-                onClick={onClick}
-                _hover={{ backgroundColor: '#2B6CB0' }}
-                bg='#3182CE'
-                className="transition duration-200 ease-in text-white font-bold py-2 px-4 rounded">
-                {name}
-              </Button>
+            <PopoverBody className='pl-7 pr-7'>
+              <Text
+                as='p'
+                className='mb-2 mt-5'
+              >
+                You wish to go the <strong>{name}</strong>?
+              </Text>
+              <HStack justify='flex-end' mr='7'>
+                <Button
+                  onClick={onClick}
+                  _hover={{ backgroundColor: '#2B6CB0' }}
+                  bg='#3182CE'                
+                  className='transition duration-200 ease-in text-white font-bold py-1 px-2 rounded-sm text-sm mb-3'
+                >
+                  Yes
+                </Button>
+              </HStack>
             </PopoverBody>
           </PopoverContent>
         </Popover>

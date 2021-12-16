@@ -1,15 +1,18 @@
 import { Html } from "@react-three/drei";
-import { IconButton, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger, Text } from "@chakra-ui/react";
+import { IconButton, Image, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverTrigger, Text } from "@chakra-ui/react";
 import { motion } from 'framer-motion';
 import { BsInfoLg } from "react-icons/bs";
+import { InfoDemoType } from "../../@types";
+import { DeepMerger } from "@apollo/client/utilities";
 
 type InteractionInfoProps = {
   position: any
   name: string
   description: string
+  demo: InfoDemoType
 }
 
-export function InteractionInfo({ position, name, description }: InteractionInfoProps) {
+export function InteractionInfo({ position, name, description, demo }: InteractionInfoProps) {
 
   return (
     // position: [x: number, y: number, z: number]
@@ -40,6 +43,7 @@ export function InteractionInfo({ position, name, description }: InteractionInfo
             >
               {name}
             </Text>
+            {demo && demo.url && <Image className='mb-2' src={demo.url} alt={name}/>}
             <Text
               as='p'
               className='mb-3'

@@ -26,8 +26,8 @@ export function Section({ navigationIsOpen, sections, sceneRef, setSceneRef }: S
         {!navigationIsOpen && sections[sceneRef].links && sections[sceneRef].links.map(({ name, position, ref }, index) => {
           return <InteractionLink key={index} name={name} position={position} onClick={() => setSceneRef(ref)}/>
         })}
-        {!navigationIsOpen && sections[sceneRef].infos && sections[sceneRef].infos.map(({ name, position, description }, index) => {
-          return <InteractionInfo key={index} name={name} position={position} description={description}/>
+        {!navigationIsOpen && sections[sceneRef].infos && sections[sceneRef].infos.map(({ name, position, description, demo }, index) => {
+          return <InteractionInfo key={index} name={name} position={position} description={description} demo={demo}/>
         })}
       </group>
 

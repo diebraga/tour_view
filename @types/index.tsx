@@ -1,5 +1,9 @@
 export type TextureType = {
-  url: string;
+  url?: string;
+}
+
+export type InfoDemoType = {
+  url?: string;
 }
 
 export type LinksType = {
@@ -21,4 +25,5 @@ export type InfosType = {
   name: string
   position: any
   description: string
+  demo: InfoDemoType
 }

@@ -17,7 +17,7 @@ const sections = [
       url: 'https://res.cloudinary.com/diptjllxr/image/upload/v1639225916/1485962_Comedor_VU_26b64c35ab.jpg'
     },
     links: [
-      { name: 'inside', position: [15, 0, 0], ref: 1 }  
+      { name: 'room 2', position: [15, 0, 0], ref: 1 }  
     ],
     infos: []
   },
@@ -31,10 +31,13 @@ const sections = [
     },
     links: [
       // ref do link e onde ele vai levar
-      { name: 'outside', position: [10, 0, -15], ref: 0 },
+          // position: [x: number, y: number, z: number]
+      { name: 'room 1', position: [10, 0, -15], ref: 0 },
     ],
     infos: [
-      { name: 'televilsion', position: [15, 0, 0], description: 'great television so much fun whatching it you should buy one for your kids!' },
+      { name: 'televilsion', position: [-15, 0, 7], description: 'great television so much fun whatching it you should buy one for your kids!', demo: {
+        url: 'https://i.gifer.com/59fy.gif'
+      } },
     ]  
   },
 ]

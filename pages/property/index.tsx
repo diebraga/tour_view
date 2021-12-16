@@ -6,6 +6,7 @@ import { Section } from '../../components/Section'
 import SideBarNavigation from '../../components/SideBarNavigation'
 import { IconButton, useDisclosure } from '@chakra-ui/react'
 import { FiNavigation } from "react-icons/fi";
+import { NavigationButtons } from '../../components/NavigationButtons'
 
 const sections = [
   {
@@ -41,34 +42,28 @@ const sections = [
 export default function Index() {
   const [sceneRef, setSceneRef] = useState(0)
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef()
+  const { 
+    isOpen: isOpenSideBarNavigation, 
+    onOpen: onOpenSideBarNavigation, 
+    onClose: onCloseSideBarNavigation
+  } = useDisclosure()
+  const btnRefSideBarNavigation = useRef()
 
   return (
     <>
-    <SideBarNavigation onClose={onClose} isOpen={isOpen} btnRef={btnRef} sections={sections} sceneRef={sceneRef} setSceneRef={setSceneRef}/>
+    <NavigationButtons onOpen={onOpenSideBarNavigation} btnRef={btnRefSideBarNavigation}/>
 
-    <IconButton
-      aria-label='open navigation'
-      position='absolute'
-      left='6'
-      top='4'
-      borderRadius='full'
-      className='z-20'
-      ref={btnRef}
-      icon={<FiNavigation size={18}/>}
-      colorScheme='gray'
-      onClick={onOpen} />
-
-    <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
+    <Canvas frameloop="demand" camera={{ position: [-1, 0, 0.3] }}>
       <OrbitControls enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5} />
       <primitive object={new THREE.AxesHelper(10)} />
 
       <Suspense fallback={null}>
         <Preload all />
-        <Section navigationIsOpen={isOpen} sections={sections} sceneRef={sceneRef} setSceneRef={setSceneRef}/>
+        <Section navigationIsOpen={isOpenSideBarNavigation} sections={sections} sceneRef={sceneRef} setSceneRef={setSceneRef}/>
       </Suspense>
     </Canvas>
+
+    <SideBarNavigation onClose={onCloseSideBarNavigation} isOpen={isOpenSideBarNavigation} btnRef={btnRefSideBarNavigation} sections={sections} sceneRef={sceneRef} setSceneRef={setSceneRef}/>
     </>
   )
 }

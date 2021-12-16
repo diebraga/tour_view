@@ -1,20 +1,24 @@
-export type SectionTypes = {
-  id: any;
-  name: any;
-  slug: any;
-  textureUrl: any;
-  createdAtDate: string;
-  createdAtTime: string;
-  interactions: InteractionTypes[]
+export type TextureType = {
+  url: string;
 }
 
-export type InteractionTypes = {
-  description: string
-  id: string
-  link: string
+export type LinksType = {
   name: string
-  positionX: number
-  positionY: number
-  positionZ: number
-  type: 'info' | 'link'
+  position: any
+  ref: number
+}
+
+export type SectionType = {
+  id: number
+  name: string
+  ref: number
+  texture: TextureType
+  links: LinksType[]
+  infos: InfosType[]
+}
+
+export type InfosType = {
+  name: string
+  position: any
+  description: string
 }

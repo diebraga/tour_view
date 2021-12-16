@@ -1,13 +1,21 @@
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Text, useDisclosure, VStack } from "@chakra-ui/react";
-import { getAllSections } from "../../controllers/sections";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import styles from './styles.module.scss'
 import { AlertConfirm } from "../AlertConfirm";
-import { useRef } from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useRef } from "react";
 import { useRouter } from "next/router";
+import { SectionType } from "../../@types";
 
-export default function SideBarNavigation({ onClose, isOpen, btnRef }) {
-  const { sections } = getAllSections()
+type SideBarNavigationProps = {
+  onClose: () => void 
+  isOpen: boolean 
+  btnRef: MutableRefObject<undefined> 
+  sections: SectionType[]
+  sceneRef: number 
+  setSceneRef: Dispatch<SetStateAction<number>>
+}
+
+export default function SideBarNavigation({ onClose, isOpen, btnRef, sections, sceneRef, setSceneRef }: SideBarNavigationProps) {
   const { 
     isOpen: isOpenAlert, 
     onOpen: onOpenAlert, 
@@ -34,12 +42,12 @@ export default function SideBarNavigation({ onClose, isOpen, btnRef }) {
 
           <DrawerBody pl='3' pt='2' pr='10'>
             <VStack align='flex-start'>
-              {sections && sections.map(({ name, slug }, index) => {
+              {sections[sceneRef].links && sections[sceneRef].links.map(({ name, ref }, index) => {
                 return (
                   <a
                     key={index} 
-                    href={`/property/${slug}`}
-                    className={styles.hoverUnderlineAnimation}
+                    onClick={() => setSceneRef(ref)}
+                    className={`${styles.hoverUnderlineAnimation} cursor-pointer`}
                   >
                     <Text color='gray.600' fontWeight='semibold' fontSize={['13px', '15px', '18px', '19px']}>
                       {name}

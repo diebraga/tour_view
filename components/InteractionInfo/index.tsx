@@ -3,8 +3,13 @@ import { IconButton, Popover, PopoverBody, PopoverCloseButton, PopoverContent, P
 import { motion } from 'framer-motion';
 import { BsInfoLg } from "react-icons/bs";
 
+type InteractionInfoProps = {
+  position: any
+  name: string
+  description: string
+}
 
-export function InteractionInfo({ position, name, description }) {
+export function InteractionInfo({ position, name, description }: InteractionInfoProps) {
 
   return (
     // position: [x: number, y: number, z: number]

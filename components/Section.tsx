@@ -1,45 +1,25 @@
 import * as THREE from 'three'
 import { useLoader } from '@react-three/fiber'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { InteractionLink } from './InteractionLink'
 import { InteractionInfo } from './InteractionInfo'
+import { SectionType } from '../@types'
 
-const sections = [
-  {
-    id: 1,
-    name: 'room 1',
-    ref: 0,
-    texture: 'https://res.cloudinary.com/diptjllxr/image/upload/v1639225916/1485962_Comedor_VU_26b64c35ab.jpg',
-    links: [
-      { name: 'inside', position: [15, 0, 0], ref: 1 }  
-    ],
-    infos: []
-  },
-  {
-    id: 2,
-    name: 'room 2',
-    // ref e a referencia da section * array position
-    ref: 1,
-    texture: 'https://res.cloudinary.com/diptjllxr/image/upload/v1639164158/create_interactive_360_vr_architectural_interior_view_b956291a14.jpg',
-    links: [
-      // ref do link e onde ele vai levar
-      { name: 'outside', position: [10, 0, -15], ref: 0 },
-    ],
-    infos: [
-      { name: 'televilsion', position: [15, 0, 0], description: 'great television so much fun whatching it you should buy one for your kids!' },
-    ]  
-  },
-]
+type SectionProps = {
+  navigationIsOpen: boolean
+  sections: SectionType[]
+  sceneRef: number
+  setSceneRef: Dispatch<SetStateAction<number>>
+}
 
-export function Section({ navigationIsOpen }) {
-  const [sceneRef, setSceneRef] = useState(0)
-  const maps = useLoader(THREE.TextureLoader, sections[sceneRef].texture) 
+export function Section({ navigationIsOpen, sections, sceneRef, setSceneRef }: SectionProps) {
+  const maps = useLoader(THREE.TextureLoader, sections[sceneRef].texture.url) 
 
   return (
     <group>
       <mesh>
         <sphereBufferGeometry args={[500, 60, 40]} />
-        
+        {/* @ts-ignore */}
         <meshBasicMaterial map={maps} side={THREE.BackSide} />
       </mesh>
       <group>

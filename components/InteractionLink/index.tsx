@@ -3,13 +3,18 @@ import { Box, Button, IconButton, Popover, PopoverBody, PopoverContent, PopoverT
 import { motion } from 'framer-motion';
 import { GiClick } from "react-icons/gi";
 
+type InteractionLinkProps = {
+  position: any
+  name: string
+  onClick: () => void
+}
 
-export function InteractionLink({ position, name, onClick }) {
+export function InteractionLink({ position, name, onClick }: InteractionLinkProps) {
 
   return (
     // position: [x: number, y: number, z: number]
-    <Html center position={position}>
-      <Box className='z-10'>
+    <Html center position={position} zIndexRange={[5, 0]} >
+      <Box>
         <Popover trigger='hover'>
           <PopoverTrigger>
             <IconButton 

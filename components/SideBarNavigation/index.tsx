@@ -46,7 +46,7 @@ export default function SideBarNavigation({ onClose, isOpen, btnRef, sections, s
                 return (
                   <a
                     key={index} 
-                    onClick={() => setSceneRef(ref)}
+                    onClick={() => {setSceneRef(ref), onClose()}}
                     className={`${styles.hoverUnderlineAnimation} cursor-pointer`}
                   >
                     <Text color='gray.600' fontWeight='semibold' fontSize={['13px', '15px', '18px', '19px']}>

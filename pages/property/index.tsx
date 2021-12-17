@@ -56,7 +56,7 @@ export default function Index() {
     <>
     <NavigationButtons onOpen={onOpenSideBarNavigation} btnRef={btnRefSideBarNavigation}/>
 
-    <Canvas frameloop="demand" camera={{ position: [-1, 0, 0.3] }}>
+    <Canvas frameloop="demand" camera={{ position: [0, 0, 0.1] }}>
       <OrbitControls enableZoom={false} enablePan={false} enableDamping dampingFactor={0.2} autoRotate={false} rotateSpeed={-0.5} />
       <primitive object={new THREE.AxesHelper(10)} />
 

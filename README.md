@@ -8,7 +8,7 @@ https://tour-view.vercel.app/property
 
 ### Requirements
 
-- NodeJS v16^
+- NodeJS 
 - NPM or Yarn
 
 #### Frontend
